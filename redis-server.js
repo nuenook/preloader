@@ -38,29 +38,5 @@ module.exports = {
             })
 		}
 		next();
-	},
-    pageLoaded: function (req, res, next) {
-        if (!redisOnline) {
-            return next();
-        }
-
-        var key = req.prerender.url;
-        var response = {
-            statusCode: req.prerender.statusCode,
-            content: req.prerender.content.toString(),
-            headers: req.prerender.headers
-        };
-        redisClient.set(key, JSON.stringify(response), function (error, reply) {
-            // If library set to cache set an expiry on the key.
-            if (!error && reply && TTL) {
-                redisClient.expire(key, TTL, function (error, didSetExpiry) {
-                    if (!error && !didSetExpiry) {
-                        console.warn('Could not set expiry for "' + key + '"');
-                    }
-                });
-            }
-        });
-
-        next();
-    }
+	}
 };
