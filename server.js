@@ -2,7 +2,7 @@
 var prerender = require('./lib');
 
 var server = prerender({
-    logRequests: true,
+    logRequests: false,
 });
 
 server.use(prerender.sendPrerenderHeader());

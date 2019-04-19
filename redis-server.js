@@ -20,9 +20,9 @@ module.exports = {
 
         redisClient.get(req.prerender.url, function (error, result) {
             if (!error && result) {
-                console.log(result)
+                console.log("111111111", result)
                 req.prerender.cacheHit = true;
-                console.log(req.prerender)
+                console.log("22222222", req.prerender)
                 var response = JSON.parse(result);
 
                 res.send(response.statusCode, response);
@@ -34,7 +34,7 @@ module.exports = {
     beforeSend: function(req, res, next) {
 		if (!req.prerender.cacheHit && req.prerender.statusCode == 200) {    
             redisClient.set(req.prerender.url, JSON.stringify(req.prerender.content), function (error, reply) {
-                console.log(error, reply)
+                console.log("33333333", error, reply)
             })
 		}
 		next();
